@@ -22,7 +22,7 @@ A modern e-commerce platform built with React, TypeScript, and Supabase, featuri
 
 ## Prerequisites
 
-- Node.js (v18.18.0 or higher)
+- Node.js (v20 or higher)
 - npm or yarn
 - Supabase account
 - Stripe account
