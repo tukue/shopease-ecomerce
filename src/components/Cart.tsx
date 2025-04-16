@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { PaymentButton } from './PaymentButton';
 import { useCart } from '../context/CartContext';
 import { Trash2, Plus, Minus } from 'lucide-react';
@@ -6,11 +7,19 @@ import { Trash2, Plus, Minus } from 'lucide-react';
 export function Cart() {
   const { items, removeFromCart, updateQuantity, total } = useCart();
 
+  // Prepare items for Stripe checkout
+  const checkoutItems = items.map(item => ({
+    name: item.name,
+    price: item.price,
+    quantity: item.quantity,
+    image: item.image
+  }));
+
   if (items.length === 0) {
     return (
       <div className="text-center py-8">
         <h2 className="text-xl font-semibold mb-4">Your Cart is Empty</h2>
-        <a href="/" className="text-blue-600 hover:underline">Continue Shopping</a>
+        <Link to="/" className="text-blue-600 hover:underline">Continue Shopping</Link>
       </div>
     );
   }
@@ -67,10 +76,12 @@ export function Cart() {
           <span className="text-xl">${total.toFixed(2)}</span>
         </div>
         
-        <PaymentButton items={items} />
+        <PaymentButton items={checkoutItems} />
       </div>
     </div>
   );
 }
+
+
 
 
